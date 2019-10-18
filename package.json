@@ -1,0 +1,17 @@
+{
+  "name": "padel-book",
+  "version": "1.0.0",
+  "description": "Book padel schedule",
+  "dependencies": {
+    "commander": "^3.0.2",
+    "puppeteer": "^1.20.0"
+  },
+  "devDependencies": {
+    "jest": "^21.2.1"
+  },
+  "author": "Eric Hang",
+  "license": "ISC",
+  "bin": {
+    "book": "./bin/index.js"
+  }
+}

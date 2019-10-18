@@ -1,0 +1,14 @@
+{
+    "url": "https://resa-toulousepadelclub.deciplus.pro/index.html",
+    "user": {
+        "selector": "#maillog2",
+        "value": "kh.ericr@gmail.com"
+    },
+    "password": {
+        "selector": "#mailpass2",
+        "value": "bookauto"
+    },
+    "form": {
+        "selector": "form"
+    }
+}

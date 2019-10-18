@@ -1,0 +1,15 @@
+{
+    "url": "https://resa-toulousepadelclub.deciplus.pro/sp_reservation.php",
+    "urlParameters": [{
+         "key": "date",
+         "type": "date",
+         "format": "DD/MM/YYYY",
+         "default": "01/01/1970"
+        }
+    ],
+    "nextElement": {
+        "type": "div",
+        "parentsSelector": ".contenu table td.creneaux",
+        "searchSelectorInParent": ""
+    }
+}
