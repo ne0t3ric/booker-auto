@@ -1,29 +1,55 @@
 const puppeteer = require('puppeteer')
-const Login = require('./../lib/blocks/login')
+/* const Login = require('./../lib/blocks/login')
 const Block = require('./../lib/blocks/book')
 const config = require('./../config')
 const blockConfig = {
   capture: {
-    path: config.logs.path
+    path: config.screenshots.path
   }
-}
+} */
+const NavigateToLoginHandler = require('./../lib/handlers/NavigateToLogin/NavigateToLoginHandler')
+const LoginHandler = require('./../lib/handlers/Login/LoginHandler')
+const NavigateToSchedulesHandler = require('./../lib/handlers/NavigateToSchedules/NavigateToSchedulesHandler')
+const DayPickerHandler = require('./../lib/handlers/DayPicker/DayPickerHandler')
+const SchedulePickerHandler = require('./../lib/handlers/SchedulePicker/SchedulePickerHandler')
+const ScheduleBookingHandler = require('./../lib/handlers/ScheduleBooking/ScheduleBookingHandler')
+
 
 ;(async () => {
   const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox', '--proxy-bypass-list=<-loopback>']})
-  const page = await browser.newPage()
-  await page.setViewport({width: 1000, height: 1000}); // <-- add await here so it sets viewport after it creates the page
 
-  const login = new Login('login', page, blockConfig)
-  await login.execute()
+  try{
+    const day = '25/10/2019'
+    const start = new NavigateToLoginHandler()
+    const login = new LoginHandler()
+    const navigateToSchedules = new NavigateToSchedulesHandler()
+    const dayPicker = new DayPickerHandler(day)
+    const schedulePicker = new SchedulePickerHandler()
+    // const validateSchedule = new ValidateScheduleHandler()
 
-  const book = new Block('book', page, blockConfig)
-  await book.execute()
+    start.setNext(login)
+    login.setNext(navigateToSchedules)
+    navigateToSchedules.setNext(dayPicker)
+    dayPicker.setNext(schedulePicker)
+    // pickSchedule.setNext(validateSchedule)
 
-  browser.close()
+    const page = await browser.newPage()
+    await page.setViewport({width: 1000, height: 1000}); // <-- add await here so it sets viewport after it creates the page
+    
+    await start.handle(page)
+   } catch (err) {
+    console.error(err.message);
+  } finally {
+    await browser.close();
+  } 
+ 
 
+/*   browser.close()
+ */
   process.exit(22);
 })()
 
 setTimeout((function() {
+    console.error('Timeout execeed');
     return process.exit(22);
-}), 10000);
+}), 20000);

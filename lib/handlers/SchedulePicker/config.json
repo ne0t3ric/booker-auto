@@ -1,0 +1,7 @@
+{
+  "padelCourtsSelector": ".contenu table td.creneaux",
+  "className": {
+    "available": "creneau_libre",
+    "unavailable": "creneau_ferme"
+  }
+}

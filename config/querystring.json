@@ -1,0 +1,8 @@
+{
+  "sport": {
+    "padel": 1
+  },
+  "date": {
+    "format": "DD/MM/YYYY"
+  }
+}
