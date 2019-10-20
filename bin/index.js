@@ -1,12 +1,4 @@
 const puppeteer = require('puppeteer')
-/* const Login = require('./../lib/blocks/login')
-const Block = require('./../lib/blocks/book')
-const config = require('./../config')
-const blockConfig = {
-  capture: {
-    path: config.screenshots.path
-  }
-} */
 const NavigateToLoginHandler = require('./../lib/handlers/NavigateToLogin/NavigateToLoginHandler')
 const LoginHandler = require('./../lib/handlers/Login/LoginHandler')
 const NavigateToSchedulesHandler = require('./../lib/handlers/NavigateToSchedules/NavigateToSchedulesHandler')
@@ -20,11 +12,12 @@ const ScheduleBookingHandler = require('./../lib/handlers/ScheduleBooking/Schedu
 
   try{
     const day = '25/10/2019'
+    const time = '14:00'
     const start = new NavigateToLoginHandler()
     const login = new LoginHandler()
     const navigateToSchedules = new NavigateToSchedulesHandler()
     const dayPicker = new DayPickerHandler(day)
-    const schedulePicker = new SchedulePickerHandler()
+    const schedulePicker = new SchedulePickerHandler(time)
     // const validateSchedule = new ValidateScheduleHandler()
 
     start.setNext(login)

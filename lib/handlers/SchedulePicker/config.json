@@ -1,4 +1,5 @@
 {
+  "bookingPeriod": "3600000",
   "padelCourtsSelector": ".contenu table td.creneaux",
   "className": {
     "available": "creneau_libre",
