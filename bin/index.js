@@ -1,11 +1,10 @@
 const puppeteer = require('puppeteer')
 const NavigateToLoginHandler = require('./../lib/handlers/NavigateToLogin/NavigateToLoginHandler')
-const LoginHandler = require('./../lib/handlers/Login/LoginHandler')
+const LoginFormHandler = require('./../lib/handlers/LoginForm/LoginFormHandler')
 const NavigateToSchedulesHandler = require('./../lib/handlers/NavigateToSchedules/NavigateToSchedulesHandler')
 const DayPickerHandler = require('./../lib/handlers/DayPicker/DayPickerHandler')
 const SchedulePickerHandler = require('./../lib/handlers/SchedulePicker/SchedulePickerHandler')
-const ScheduleBookingHandler = require('./../lib/handlers/ScheduleBooking/ScheduleBookingHandler')
-
+const BookingFormHandler = require('../lib/handlers/BookingForm/BookingFormHandler')
 
 ;(async () => {
   const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox', '--proxy-bypass-list=<-loopback>']})
@@ -14,17 +13,17 @@ const ScheduleBookingHandler = require('./../lib/handlers/ScheduleBooking/Schedu
     const day = '25/10/2019'
     const time = '14:00'
     const start = new NavigateToLoginHandler()
-    const login = new LoginHandler()
+    const loginForm = new LoginFormHandler()
     const navigateToSchedules = new NavigateToSchedulesHandler()
     const dayPicker = new DayPickerHandler(day)
     const schedulePicker = new SchedulePickerHandler(time)
-    // const validateSchedule = new ValidateScheduleHandler()
+    const bookingForm = new BookingFormHandler()
 
-    start.setNext(login)
-    login.setNext(navigateToSchedules)
+    start.setNext(loginForm)
+    loginForm.setNext(navigateToSchedules)
     navigateToSchedules.setNext(dayPicker)
     dayPicker.setNext(schedulePicker)
-    // pickSchedule.setNext(validateSchedule)
+    schedulePicker.setNext(bookingForm)
 
     const page = await browser.newPage()
     await page.setViewport({width: 1000, height: 1000}); // <-- add await here so it sets viewport after it creates the page
@@ -36,9 +35,6 @@ const ScheduleBookingHandler = require('./../lib/handlers/ScheduleBooking/Schedu
     await browser.close();
   } 
  
-
-/*   browser.close()
- */
   process.exit(22);
 })()
 

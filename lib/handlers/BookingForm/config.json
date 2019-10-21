@@ -1,0 +1,10 @@
+{
+  "players": {
+    "selector": "#nbj",
+    "value": 4
+  },
+  "form": {
+    "selector": "form[name=\"resaform\"]",
+    "stopValidation": true
+  }
+}
