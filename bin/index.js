@@ -11,7 +11,7 @@ const BookingFormHandler = require('../lib/handlers/BookingForm/BookingFormHandl
 
   try{
     const day = '25/10/2019'
-    const time = '14:00'
+    const time = '12:00'
     const start = new NavigateToLoginHandler()
     const loginForm = new LoginFormHandler()
     const navigateToSchedules = new NavigateToSchedulesHandler()
