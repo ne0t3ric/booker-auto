@@ -1,8 +1,17 @@
 {
-  "bookingPeriod": "3600000",
-  "padelCourtsSelector": ".contenu table td.creneaux",
-  "className": {
-    "available": "creneau_libre",
-    "unavailable": "creneau_ferme"
+  "bookingParams": {
+    "period": 3600000
+  },
+  "padelCourtsParams": {
+    "excludes": [10,11,12,13],
+    "selector": ".contenu table td.creneaux"
+  },
+  "scheduleParams": {
+    "available": {
+      "classname": "creneau_libre"
+    },
+    "unavailable": {
+      "classname": "creneau_ferme"
+    } 
   }
 }

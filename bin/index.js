@@ -5,7 +5,7 @@ const PadelBooking = require('./../lib')
   const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox', '--proxy-bypass-list=<-loopback>']})
 
   try{
-    const date = '2019-10-25T21:00'
+    const date = '2019-10-28T21:00'
     const padelBooking = new PadelBooking({
       date: date
     })
