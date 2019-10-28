@@ -1,6 +1,7 @@
 {
   "bookingParams": {
-    "period": 3600000
+    "period": 3600000,
+    "maxBookingDelay": 7
   },
   "padelCourtsParams": {
     "excludes": [10,11,12,13],
