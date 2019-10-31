@@ -12,6 +12,7 @@
   "author": "Eric Hang",
   "license": "ISC",
   "bin": {
-    "book": "./bin/index.js"
+    "schedule-booking": "./bin/cli-padel-scheduler.js",
+    "book": "./bin/cli-padel-booking.js"
   }
 }
