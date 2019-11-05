@@ -1,33 +1,29 @@
 #!/usr/bin/env node
 
-//Get bin arguments
-const [,, ...args] = process.argv
-
 const puppeteer = require('puppeteer')
-const PadelBooking = require('./../lib')
-const PadelDate = require('./../lib/formatters/PadelDate')
+const PadelBooker = require('./../lib')
+const cliArgumentsHelper = require('./cli-arguments-helper')
+const defaultConfig = require('./../config')
 
 //Start booking padel schedule
 ;(async () => {
   const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox', '--proxy-bypass-list=<-loopback>']})
 
   try{   
-    if (args[0] === undefined){
-      throw new Error('Missing argument (date as ISO 8601 Date)')
-    }
-    if (!PadelDate.isISO(args[0])){
-      throw new Error ('Misformatted date given. ISO 8601 format needed')
-    }
+    //Get bin arguments
+    const cliParams = cliArgumentsHelper.extract(process.argv)
 
+    //@TODO move screenshots as logger with singleton
+    const params = Object.assign({}, defaultConfig.book, cliParams)
+
+    // {date : ISOdate}
     //'2019-11-03T12:00' ISO 8601 format
-    const date = args[0]
-    const padelBooking = new PadelBooking({
-      date: date
-    })
+    const padelBooker = new PadelBooker(params)
+    
     const page = await browser.newPage()
     await page.setViewport({ width: 1000, height: 1000 })
   
-    await padelBooking.book(page)
+    await padelBooker.book(page)
    } catch (err) {
     console.error(err.message);
   } finally {
@@ -38,7 +34,7 @@ const PadelDate = require('./../lib/formatters/PadelDate')
 })()
 
 //Security timeout
-const timeout = 20*1000
+const timeout = 30*1000
 setTimeout((function() {
     console.error('Timeout execeed');
     return process.exit(22);

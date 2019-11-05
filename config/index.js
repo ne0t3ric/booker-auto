@@ -1,7 +1,6 @@
 const screenshots = require('./screenshots.json')
-const querystring = require('./querystring.json')
-
+const book = require('./book.json')
 module.exports = {
   screenshots,
-  querystring
+  book
 }
