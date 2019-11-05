@@ -4,7 +4,8 @@
   "description": "Book padel schedule",
   "dependencies": {
     "commander": "^3.0.2",
-    "puppeteer": "^1.20.0"
+    "puppeteer": "^1.20.0",
+    "node-schedule": "*"
   },
   "devDependencies": {
     "jest": "^21.2.1"

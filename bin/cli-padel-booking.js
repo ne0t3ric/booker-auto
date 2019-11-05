@@ -30,11 +30,11 @@ const defaultConfig = require('./../config')
     await browser.close();
   } 
  
-  process.exit(22);
+  process.exit(0);
 })()
 
 //Security timeout
-const timeout = 30*1000
+const timeout = 45*1000
 setTimeout((function() {
     console.error('Timeout execeed');
     return process.exit(22);
