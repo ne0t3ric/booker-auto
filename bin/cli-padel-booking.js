@@ -16,7 +16,7 @@ const defaultConfig = require('./../config')
     //@TODO move screenshots as logger with singleton
     const params = Object.assign({}, defaultConfig.book, cliParams)
 
-    // {date : ISOdate}
+    // {date : ISO date}
     //'2019-11-03T12:00' ISO 8601 format
     const padelBooker = new PadelBooker(params)
     
@@ -36,6 +36,6 @@ const defaultConfig = require('./../config')
 //Security timeout
 const timeout = 45*1000
 setTimeout((function() {
-    console.error('Timeout execeed');
+    console.error('Timeout exceed');
     return process.exit(22);
 }), timeout);

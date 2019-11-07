@@ -4,7 +4,7 @@
     "maxBookingDelay": 7
   },
   "padelCourtsParams": {
-    "excludes": [10,11,12,13],
+    "excludes": [1,10,11,12,13],
     "selector": ".contenu table td.creneaux"
   },
   "scheduleParams": {

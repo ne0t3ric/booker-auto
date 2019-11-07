@@ -1,7 +1,7 @@
 const cliArgumentsHelper = {
-    extract: function (proccesArgv) {
+    extract: function (processArgv) {
         //Get bin arguments
-        const [,, ...args] = proccesArgv
+        const [,, ...args] = processArgv
 
         // 1st argument => date
         const date = args[0]

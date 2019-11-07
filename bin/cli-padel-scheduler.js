@@ -1,9 +1,5 @@
 #!/usr/bin/env node
 
-//Get bin arguments
-const [, , ...args] = process.argv
-
-
 //imports
 const schedule = require('node-schedule')
 const cliArgumentsHelper = require('./cli-arguments-helper')
@@ -14,9 +10,9 @@ const childProcess = require('child_process');
 function runScript(scriptPath, args, callback) {
 
     // keep track of whether callback has been invoked to prevent multiple invocations
-    var invoked = false;
+    let invoked = false;
 
-    var process = childProcess.fork(scriptPath, args);
+    const process = childProcess.fork(scriptPath, args);
 
     // listen for errors as they may prevent the exit event from firing
     process.on('error', function (err) {
@@ -29,7 +25,7 @@ function runScript(scriptPath, args, callback) {
     process.on('exit', function (code) {
         if (invoked) return;
         invoked = true;
-        var err = code === 0 ? null : new Error('exit code ' + code);
+        let err = code === 0 ? null : new Error('exit code ' + code);
         callback(err);
     });
 
@@ -47,20 +43,21 @@ try {
     //'2019-11-03T12:00' ISO 8601 format
     const now = new Date()
     const bookingDate = new Date(params.date)
+    const {delayBeforeBooking} = params;
     const minDate = new Date(
         bookingDate.getFullYear(),
         bookingDate.getMonth(), 
-        bookingDate.getDate() - params.delayBeforeBooking,
+        bookingDate.getDate() - delayBeforeBooking,
         bookingDate.getHours(),
         bookingDate.getMinutes() + secureMinuteDelay
     );
 
     const execute = function(date){
-        runScript('./bin/cli-padel-booking.js', [ params.date ], function (err) {
+        runScript('./bin/cli-padel-booking.js', [ date ], function (err) {
             if (err) throw err;
             console.log('Finished running booking script');
         });
-    }.bind(null, bookingDate)
+    }.bind(null, params.date)
 
     if (now < minDate){
         schedule.scheduleJob(minDate, execute)
