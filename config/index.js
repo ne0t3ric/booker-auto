@@ -1,6 +1,7 @@
-const screenshots = require('./screenshots.json')
+const tracer = require('./tracer.json')
 const book = require('./book.json')
+
 module.exports = {
-  screenshots,
+  tracer,
   book
 }
