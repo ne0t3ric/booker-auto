@@ -8,6 +8,7 @@ const defaultConfig = require('./../config')
 //Start booking padel schedule
 ;(async () => {
   const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox', '--proxy-bypass-list=<-loopback>']})
+  let isPadelCourtForScheduleBooked;
 
   try{   
     //Get bin arguments
@@ -24,18 +25,25 @@ const defaultConfig = require('./../config')
     await page.setViewport({ width: 1000, height: 1000 })
   
     await padelBooker.book(page)
+
+    isPadelCourtForScheduleBooked = true;
    } catch (err) {
-    console.error(err.message);
+    console.error(err.message)
+    isPadelCourtForScheduleBooked = false;
   } finally {
-    await browser.close();
+    await browser.close()
   } 
- 
-  process.exit(0);
+
+  if (isPadelCourtForScheduleBooked){
+    process.exit(0)
+  } else {
+    process.exit(1)
+  }
 })()
 
 //Security timeout
 const timeout = 45*1000
 setTimeout((function() {
-    console.error('Timeout exceed');
-    return process.exit(22);
-}), timeout);
+    console.error('Timeout exceed')
+    return process.exit(22)
+}), timeout)
