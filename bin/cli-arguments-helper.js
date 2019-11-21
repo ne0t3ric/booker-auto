@@ -1,13 +1,25 @@
+const parseArgs  = require('minimist')
+const defaultConfig = require('./config')
+
 const cliArgumentsHelper = {
     extract: function (processArgv) {
         //Get bin arguments
-        const [,, ...args] = processArgv
+        const args = parseArgs(processArgv.slice(2), {
+            string: ['date','sport','excludedCourts'], // --date 2019-11-10T12:00 --sport padel (opt., default)
+            boolean: ['defer', 'prod'], // --defer
+            alias: { d: 'defer' }
+        });
 
         // 1st argument => date
         const date = args[0]
 
         return {
-            date: this.extractDate(date)
+            date: this.extractDate(args.date || undefined),
+            defer: args.defer || false,
+            noValidation: 'undefined' !== typeof args.prod ? !args.prod : defaultConfig.noValidation,
+            sport: args.sport || defaultConfig.sport,
+            excludedCourts: 'undefined' !== typeof args.excludedCourts ? args.excludedCourts.split(',') : defaultConfig.excludedCourts,
+            delayBeforeBooking: args.delayBeforeBooking || defaultConfig.delayBeforeBooking
         }
     },
     extractDate(date) {

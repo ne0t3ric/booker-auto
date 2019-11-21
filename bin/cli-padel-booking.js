@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
 const puppeteer = require('puppeteer')
-const PadelBooker = require('./../lib')
+const SportBooker = require('./../lib')
 const cliArgumentsHelper = require('./cli-arguments-helper')
 const defaultConfig = require('./../config')
 
-//Start booking padel schedule
+//Start booking schedule for sport
 ;(async () => {
   const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox', '--proxy-bypass-list=<-loopback>']})
-  let isPadelCourtForScheduleBooked;
+  let isScheduleBooked;
 
   try{   
     //Get bin arguments
@@ -19,22 +19,22 @@ const defaultConfig = require('./../config')
 
     // {date : ISO date}
     //'2019-11-03T12:00' ISO 8601 format
-    const padelBooker = new PadelBooker(params)
+    const sportBooker = new SportBooker(params)
     
     const page = await browser.newPage()
     await page.setViewport({ width: 1000, height: 1000 })
   
-    await padelBooker.book(page)
+    await sportBooker.book(page)
 
-    isPadelCourtForScheduleBooked = true;
+    isScheduleBooked = true;
    } catch (err) {
     console.error(err.message)
-    isPadelCourtForScheduleBooked = false;
+    isScheduleBooked = false;
   } finally {
     await browser.close()
   } 
 
-  if (isPadelCourtForScheduleBooked){
+  if (isScheduleBooked){
     process.exit(0)
   } else {
     process.exit(1)

@@ -4,7 +4,6 @@
     "value": 4
   },
   "form": {
-    "selector": "form[name=\"resaform\"]",
-    "stopValidation": true
+    "selector": "form[name=\"resaform\"]"
   }
 }

@@ -3,7 +3,7 @@
     "period": 3600000,
     "maxBookingDelay": 7
   },
-  "padelCourtsParams": {
+  "sportCourtsParams": {
     "excludes": [1,10,11,12,13],
     "selector": ".contenu table td.creneaux"
   },
