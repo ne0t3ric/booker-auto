@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+/* #!/usr/bin/env node
 
 const puppeteer = require('puppeteer')
 const SportBooker = require('./../lib')
@@ -46,4 +46,4 @@ const timeout = 45*1000
 setTimeout((function() {
     console.error('Timeout exceed')
     return process.exit(22)
-}), timeout)
+}), timeout) */

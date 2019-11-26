@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+/* #!/usr/bin/env node
 
 //imports
 const schedule = require('node-schedule')
@@ -12,7 +12,10 @@ function runScript(scriptPath, args, callback) {
     // keep track of whether callback has been invoked to prevent multiple invocations
     let invoked = false;
 
-    const process = childProcess.fork(scriptPath, args);
+    const process = childProcess.spawn(scriptPath, args, {
+        detached: true,
+        stdio: 'ignore'
+    });
 
     // listen for errors as they may prevent the exit event from firing
     process.on('error', function (err) {
@@ -29,9 +32,8 @@ function runScript(scriptPath, args, callback) {
         callback(err);
     });
 
+    process.unref()
 }
-
-
 
 try {
     //Get bin arguments
@@ -68,4 +70,4 @@ try {
 
 } catch (err) {
     console.log(err.message)
-}
+} */
