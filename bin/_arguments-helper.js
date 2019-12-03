@@ -27,8 +27,10 @@ const cliArgumentsHelper = {
     },
     extractDeferDate(deferDate){
         if ('undefined' !== typeof deferDate){
-            if (!/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}:\d{3}/.test(deferDate)) {
+            if (!/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/.test(deferDate)) {
                 throw new Error('Misformatted date given. ISO 8601 format in UTC needed')
+            } else {
+                return deferDate
             }
         } else {
             return null

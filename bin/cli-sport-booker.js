@@ -30,37 +30,47 @@ const minDate = new Date(
   bookingDate.getMinutes() + secureMinuteDelay
 ); 
 
-if (params.deferDate){
-  schedule.scheduleJob(params.deferDate, function(){
-    runScript('./bin/cli-sport-booker.js', [
-      '--date', params.date,
-      '--sport', params.sport,
-      '--excludedCourts', params.excludedCourts.join(','),
-      params.noValidation ? '' : '--prod'
-    ]);
-  })
-
-  process.exit(0)
-}
 //Start booking schedule for sport
 ; (async () => {
   try {
-    //defer booking because it is too early to book
-    if (now < minDate) {
+    if (params.deferDate){
+      //booking is schedule from deferDate. At this date, the booking script will be
+      //launched to start booking at params.date date.
+      const deferDate = new Date(params.deferDate)
+      const deferPeriod = deferDate - now
+      console.log('deferPeriod', deferPeriod);
+      setTimeout(function(){
+        runScript('./bin/cli-sport-booker.js', [
+          '--date', params.date,
+          '--sport', params.sport,
+          '--excludedCourts', params.excludedCourts.join(','),
+          params.noValidation ? '' : '--prod'
+        ]);
+      }.bind(this), deferDate)
+    } else if (now < minDate) {
+       //defer booking because it is too early to book, by adding deferDate
       runScript('./bin/cli-sport-booker.js', [
         '--date', params.date,
         '--sport', params.sport,
         '--excludedCourts', params.excludedCourts.join(','),
-        '--deferDate', minDate,
+        '--deferDate', minDate.toISOString(),
         params.noValidation ? '' : '--prod'
       ]);
     } else { 
+      // Immediate booking
+      //Security timeout
+      const timeout = 90 * 1000
+      setTimeout((function () {
+        console.error('Timeout exceed 90s')
+        return process.exit(22)
+      }), timeout)
+
       const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--proxy-bypass-list=<-loopback>'] })
       // {date : ISO date}
       //'2019-11-03T12:00' ISO 8601 format
       const sportBooker = new SportBooker(params)
-
       const page = await browser.newPage()
+
       await page.setViewport({ width: 1000, height: 1000 })
 
       await sportBooker.book(page)
@@ -75,10 +85,3 @@ if (params.deferDate){
     process.exit(err.statusCode || 1)
   }
 })()
-
-//Security timeout
-const timeout = 45 * 1000
-setTimeout((function () {
-  console.error('Timeout exceed')
-  return process.exit(22)
-}), timeout)

@@ -42,14 +42,14 @@ There is no tests yet in this project
 After installation above, you can run two commands (CLI) in your terminal
 
 
-Book your schedule directly : `book`
+Book your schedule directly : `sport-booker`
 ```
-book 2019-11-05T12:00
+sport-booker --date 2019-12-05T11:00:00.000Z --sport padel (optional) --excludedCourts 1,9,10,11,12 --prod
 ```
 
-Anticipate your booking at a give schedule : `schedule-booking`
+It will automatically anticipate your booking at a given schedule if the demand is too early. It is possible to launch the booking command at a specific date (as a scheduled job) with `--deferDate <deferDate>` options
 ```
-TODO
+sport-booker --date 2019-12-05T11:00:00.000Z  --deferDate
 ```
 
 
