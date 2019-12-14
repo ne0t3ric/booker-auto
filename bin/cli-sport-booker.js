@@ -37,8 +37,8 @@ const minDate = new Date(
       //booking is schedule from deferDate. At this date, the booking script will be
       //launched to start booking at params.date date.
       const deferDate = new Date(params.deferDate)
-      const deferPeriod = deferDate - now
-      console.log('deferPeriod', deferPeriod);
+      const deferPeriod = Math.max(deferDate - now, 0)
+      
       setTimeout(function(){
         runScript('./bin/cli-sport-booker.js', [
           '--date', params.date,
@@ -46,7 +46,7 @@ const minDate = new Date(
           '--excludedCourts', params.excludedCourts.join(','),
           params.noValidation ? '' : '--prod'
         ]);
-      }.bind(this), deferDate)
+      }.bind(this), deferPeriod)
     } else if (now < minDate) {
        //defer booking because it is too early to book, by adding deferDate
       runScript('./bin/cli-sport-booker.js', [
