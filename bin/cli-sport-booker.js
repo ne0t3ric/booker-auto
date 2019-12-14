@@ -6,6 +6,7 @@ const cliArgumentsHelper = require('./_arguments-helper')
 const runScript = require('./_run-script')
 const schedule = require('node-schedule')
 const secureMinuteDelay = 1 //m
+const currentScript = __filename
 
 let params;
 try {
@@ -33,14 +34,14 @@ const minDate = new Date(
 //Start booking schedule for sport
 ; (async () => {
   try {
+
     if (params.deferDate){
       //booking is schedule from deferDate. At this date, the booking script will be
       //launched to start booking at params.date date.
       const deferDate = new Date(params.deferDate)
       const deferPeriod = Math.max(deferDate - now, 0)
-      
       setTimeout(function(){
-        runScript('./bin/cli-sport-booker.js', [
+        runScript(currentScript, [
           '--date', params.date,
           '--sport', params.sport,
           '--excludedCourts', params.excludedCourts.join(','),
@@ -49,7 +50,7 @@ const minDate = new Date(
       }.bind(this), deferPeriod)
     } else if (now < minDate) {
        //defer booking because it is too early to book, by adding deferDate
-      runScript('./bin/cli-sport-booker.js', [
+      runScript(currentScript, [
         '--date', params.date,
         '--sport', params.sport,
         '--excludedCourts', params.excludedCourts.join(','),
@@ -61,7 +62,7 @@ const minDate = new Date(
       //Security timeout
       const timeout = 90 * 1000
       setTimeout((function () {
-        console.error('Timeout exceed 90s')
+        console.error('Timeout exceed ' + timeout / 1000 + 'seconds')
         return process.exit(22)
       }), timeout)
 
