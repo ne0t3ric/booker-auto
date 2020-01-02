@@ -57,6 +57,7 @@ const minDate = new Date(
         '--deferDate', minDate.toISOString(),
         params.noValidation ? '' : '--prod'
       ]);
+      process.exit(10)
     } else { 
       // Immediate booking
       //Security timeout
