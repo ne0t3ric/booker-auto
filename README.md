@@ -1,5 +1,5 @@
-## padel-booking
-`padel-booking` allows a bad-ass padel player to book its desired schedule to play padel with his friends (or ennemies). There is more : it can be used automatically
+## sport-booker
+`sport-booker` allows a bad-ass padel or squash player to book its desired schedule to play with his friends (or ennemies). There is more : you can choose your sport and it can be used automatically
 
 This project is just an example of automated booking procedure, but it can be extended to other purposes.
 
