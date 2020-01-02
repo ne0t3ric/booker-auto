@@ -1,7 +1,7 @@
 {
-  "name": "padel-booking",
+  "name": "sport-booker",
   "version": "1.0.0",
-  "description": "Book padel schedule",
+  "description": "Book your schedule to play padel or squash at TPC",
   "dependencies": {
     "commander": "^3.0.2",
     "minimist": "^1.2.0",
