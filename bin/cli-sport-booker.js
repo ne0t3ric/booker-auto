@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 
 const puppeteer = require('puppeteer')
-const SportBooker = require('./../lib')
+const scripts = require('./../src/puppeteer-scripts-exports')
 const cliArgumentsHelper = require('./_arguments-helper')
 const runScript = require('./_run-script')
-const schedule = require('node-schedule')
 const secureMinuteDelay = 1 //m
 const currentScript = __filename
 
@@ -34,7 +33,6 @@ const minDate = new Date(
 //Start booking schedule for sport
 ; (async () => {
   try {
-
     if (params.deferDate){
       //booking is schedule from deferDate. At this date, the booking script will be
       //launched to start booking at params.date date.
@@ -42,6 +40,8 @@ const minDate = new Date(
       const deferPeriod = Math.max(deferDate - now, 0)
       setTimeout(function(){
         runScript(currentScript, [
+          params.book ? '--book' : '',
+          params.status ? '--status': '',
           '--date', params.date,
           '--sport', params.sport,
           '--excludedCourts', params.excludedCourts.join(','),
@@ -51,6 +51,8 @@ const minDate = new Date(
     } else if (now < minDate) {
        //defer booking because it is too early to book, by adding deferDate
       runScript(currentScript, [
+          params.book ? '--book' : '',
+          params.status ? '--status': '',
         '--date', params.date,
         '--sport', params.sport,
         '--excludedCourts', params.excludedCourts.join(','),
@@ -67,18 +69,11 @@ const minDate = new Date(
         return process.exit(22)
       }), timeout)
 
-      const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--proxy-bypass-list=<-loopback>'] })
-      // {date : ISO date}
-      //'2019-11-03T12:00' ISO 8601 format
-      const sportBooker = new SportBooker(params)
-      const page = await browser.newPage()
-
-      await page.setViewport({ width: 1000, height: 1000 })
-
-      await sportBooker.book(page)
-
-      await browser.close()
-
+      if (params.book){
+        await scripts.book(params)
+      } else if (params.status){
+        await scripts.status(params)
+      }
       process.exit(0)
     }   
   } catch (err) {

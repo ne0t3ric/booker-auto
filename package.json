@@ -16,5 +16,6 @@
   "license": "ISC",
   "bin": {
     "sport-booker": "./bin/cli-sport-booker.js"
-  }
+  },
+  "main": "src/index.js"
 }
