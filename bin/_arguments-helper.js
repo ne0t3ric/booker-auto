@@ -12,15 +12,19 @@ const cliArgumentsHelper = {
         */
         const args = parseArgs(processArgv.slice(2), {
             string: ['date','sport','excludedCourts', 'deferDate'],
-            boolean: ['prod', 'book', 'status'], // --prod
+            boolean: ['prod'], // --prod
             alias: { d: 'date' }
         });
 
+
+        args._.splice(1)
+        const action = args._[0]
+
         return {
-            book: args.book || false,
-            status: args.status || false,
-            date: args.book ? this.extractDate(args.date) : '',
-            deferDate: args.book ? this.extractDeferDate(args.deferDate) : '',
+            book: action === 'book' || false,
+            status: action === 'status' || false,
+            date: action === 'book' ? this.extractDate(args.date) : '',
+            deferDate: action === 'book' ? this.extractDeferDate(args.deferDate) : '',
             noValidation: 'undefined' !== typeof args.prod ? !args.prod : defaultConfig.noValidation,
             sport: args.sport || defaultConfig.sport,
             excludedCourts: 'undefined' !== typeof args.excludedCourts ? args.excludedCourts.split(',') : defaultConfig.excludedCourts,
