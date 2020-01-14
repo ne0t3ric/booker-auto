@@ -40,8 +40,8 @@ const minDate = new Date(
       const deferPeriod = Math.max(deferDate - now, 0)
       setTimeout(function(){
         runScript(currentScript, [
-          params.book ? '--book' : '',
-          params.status ? '--status': '',
+          params.book ? 'book' : '',
+          params.status ? 'status': '',
           '--date', params.date,
           '--sport', params.sport,
           '--excludedCourts', params.excludedCourts.join(','),
@@ -51,8 +51,8 @@ const minDate = new Date(
     } else if (now < minDate) {
        //defer booking because it is too early to book, by adding deferDate
       runScript(currentScript, [
-          params.book ? '--book' : '',
-          params.status ? '--status': '',
+          params.book ? 'book' : '',
+          params.status ? 'status': '',
         '--date', params.date,
         '--sport', params.sport,
         '--excludedCourts', params.excludedCourts.join(','),
