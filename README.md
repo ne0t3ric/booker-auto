@@ -35,6 +35,11 @@ Install binary
 npm link
 ```
 
+Then generate config env file from the example template, and replace the values
+```
+cp .env.example .env
+```
+
 ## Tests
 There is no tests yet in this project
 
