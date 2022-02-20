@@ -1,11 +1,11 @@
 const NavigateToLoginHandler = require('./handlers/NavigateToLogin/NavigateToLoginHandler')
 const LoginFormHandler = require('./handlers/LoginForm/LoginFormHandler')
-const NavigateToSchedulesHandler = require('./handlers/NavigateToSchedules/NavigateToSchedulesHandler')
+const NavigateToBookPageHandler = require('./handlers/NavigateToSchedules/NavigateToBookPageHandler')
 const DatePickerHandler = require('./handlers/DatePicker/DatePickerHandler')
 const SchedulePickerHandler = require('./handlers/SchedulePicker/SchedulePickerHandler')
 const BookingFormHandler = require('./handlers/BookingForm/BookingFormHandler')
 
-class SportBooker {
+class Booker {
   constructor(request) {
     request = request || {}
     //Date ISO 8601
@@ -21,24 +21,26 @@ class SportBooker {
 
     const start = new NavigateToLoginHandler()
     const loginForm = new LoginFormHandler()
-    const navigateToSchedules = new NavigateToSchedulesHandler()
+    const navigateToBookPage = new NavigateToBookPageHandler()
     const datePicker = new DatePickerHandler(date, sport)
     const schedulePicker = new SchedulePickerHandler(date)
     const bookingForm = new BookingFormHandler(noValidation)
 
     start.setNext(loginForm)
-    loginForm.setNext(navigateToSchedules)
-    navigateToSchedules.setNext(datePicker)
+    loginForm.setNext(navigateToBookPage)
+    navigateToBookPage.setNext(datePicker)
     datePicker.setNext(schedulePicker)
     schedulePicker.setNext(bookingForm)
 
     await start.handle(page)
   }
 
+  /*
+    @TODO: status return
+  */
   async getStatus(page){
-  	console.log('TODO status')
-    return 'json sport status'
+    return 'json status'
   }
 }
 
-module.exports = SportBooker
+module.exports = Booker

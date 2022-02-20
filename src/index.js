@@ -1,7 +1,7 @@
 const puppeteerScripts = require('./puppeteer-scripts-exports')
-const SportBooker = require('SportBooker')
+const Booker = require('Booker')
 
-module.exports {
-	scripts: puppeteerScripts
-	SportBooker: SportBooker
+module.exports = {
+	scripts: puppeteerScripts,
+	Booker: Booker
 }

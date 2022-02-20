@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const puppeteer = require('puppeteer')
-const scripts = require('./../src/puppeteer-scripts-exports')
+const scripts = require('../src/puppeteer-scripts-exports')
 const cliArgumentsHelper = require('./_arguments-helper')
 const runScript = require('./_run-script')
 const secureMinuteDelay = 1 //m
@@ -64,6 +64,7 @@ const minDate = new Date(
       // Immediate booking
       //Security timeout
       const timeout = 90 * 1000
+
       setTimeout((function () {
         console.error('Timeout exceed ' + timeout / 1000 + 'seconds')
         return process.exit(22)
@@ -73,6 +74,8 @@ const minDate = new Date(
         await scripts.book(params)
       } else if (params.status){
         await scripts.status(params)
+      } else {
+        console.log('Nothing happens')
       }
       process.exit(0)
     }   

@@ -49,7 +49,7 @@ After installation above, you can run two commands (CLI) in your terminal
 
 Book your schedule directly : `booker-auto-cli`
 ```
-booker-auto-cli --date 2019-12-05T11:00:00.000Z --sport padel (optional) --excludedCourts 1,9,10,11,12 --prod
+booker-auto-cli book --date 2019-12-05T11:00:00.000Z --sport padel (optional) --excludedCourts 1,9,10,11,12 --prod
 ```
 
 It will automatically anticipate your booking at a given schedule if the demand is too early. It is possible to launch the booking command at a specific date (as a scheduled job) with `--deferDate <deferDate>` options
