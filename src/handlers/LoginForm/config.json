@@ -1,11 +1,11 @@
 {
   "user": {
     "selector": "#maillog2",
-    "value": "kh.ericr@gmail.com"
+    "value": "Define your email in config .env file"
   },
   "password": {
     "selector": "#mailpass2",
-    "value": "bookauto"
+    "value": "Define your password in config .env file"
   },
   "form": {
     "selector": "form"
