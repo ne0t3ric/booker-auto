@@ -1,5 +1,5 @@
 {
-  "name": "sport-booker",
+  "name": "booker-auto-cli",
   "version": "1.0.0",
   "description": "Book your schedule to play padel or squash at TPC",
   "dependencies": {
@@ -15,7 +15,7 @@
   "author": "Eric Hang",
   "license": "ISC",
   "bin": {
-    "sport-booker": "./bin/cli-sport-booker.js"
+    "booker-booker-cli": "./bin/cli-sport-booker.js"
   },
   "main": "src/index.js"
 }
