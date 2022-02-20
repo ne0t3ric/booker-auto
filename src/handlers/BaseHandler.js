@@ -32,7 +32,7 @@ class BaseHandler {
 
 		if (this.next){
 			await this.next.handle(page)
-    }
+    	}
 	}
 	
 	canExecute(page){

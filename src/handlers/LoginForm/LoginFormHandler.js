@@ -1,4 +1,7 @@
 const config = require('./config.json')
+// load .env file
+require('dotenv').config()
+const FormValidatorButtonHandler = require('./../FormValidator/FormValidatorButtonHandler')
 const FormHandler = require('../FormHandler')
 
 class LoginFormHandler extends FormHandler {
@@ -6,7 +9,14 @@ class LoginFormHandler extends FormHandler {
     super(options)
 
     this.config = config
-    this.form = config.form.selector
+  }
+
+  getForm(){
+    return config.form.selector
+  }
+
+  getFormValidator(){
+    return new FormValidatorButtonHandler(this.getForm())
   }
 
   async execute(page) {
@@ -16,8 +26,12 @@ class LoginFormHandler extends FormHandler {
      * cant use loop...
      */
     const params = this.config
-    await page.type(params.user.selector, params.user.value);
-    await page.type(params.password.selector, params.password.value);
+
+    const username = process.env.CREDENTIALS_SITE_USERNAME || params.user.value
+    const password = process.env.CREDENTIALS_SITE_PASSWORD || params.password.value
+
+    await page.type(params.user.selector, username);
+    await page.type(params.password.selector, password);
   }
 }
 

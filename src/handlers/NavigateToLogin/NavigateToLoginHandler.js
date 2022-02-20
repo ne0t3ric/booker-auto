@@ -1,5 +1,6 @@
 const config = require('./config.json')
 const BaseHandler = require('./../BaseHandler')
+const {waitTillHTMLRendered} = require('./../../util')
 
 class NavigateToLoginHandler extends BaseHandler {
   constructor(options) {
@@ -11,8 +12,10 @@ class NavigateToLoginHandler extends BaseHandler {
   async execute(page) {
     const url = this.startUrl
     await page.goto(url, {
-      waitUntil: 'networkidle0'
+      waitUntil: 'load'
     })
+
+    await waitTillHTMLRendered(page)
   }
 }
 

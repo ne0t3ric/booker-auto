@@ -1,22 +1,27 @@
 const BaseHandler = require('./BaseHandler')
-const FormValidatorHandler = require('./FormValidator/FormValidatorHandler')
+const FormValidatorSubmitAPIHandler = require('./FormValidator/FormValidatorSubmitAPIHandler')
 
 class FormHandler extends BaseHandler {
   constructor(options) {
     super(options)
+
+    this.formValidator = this.getFormValidator()
   }
 
   async handleForm(page) {
     const form = this.getForm()
 
     if (form && !this.preventValidation()){
-      const formValidator = new FormValidatorHandler(form)
-      await formValidator.handle(page)
+      await this.formValidator.handle(page)
     }
   }
 
   getForm(){
-    return this.form
+    return ''
+  }
+
+  getFormValidator(){
+    return new FormValidatorSubmitAPIHandler(this.getForm())
   }
   
   preventValidation(){

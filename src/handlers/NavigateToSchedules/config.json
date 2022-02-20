@@ -1,5 +1,5 @@
 {
   "schedulesButton": {
-    "selector": "a[href=\"sp_reservation.php\"]"
+    "selector": "a[href=\"reservation.html\"]"
   }
 }

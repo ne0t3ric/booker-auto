@@ -1,7 +1,7 @@
 const config = require('./config.json')
-const BaseHandler = require('./../BaseHandler')
+const BaseHandler = require('../BaseHandler')
 
-class NavigateToSchedulesHandler extends BaseHandler {
+class NavigateToBookPageHandler extends BaseHandler {
   constructor(options) {
     super(options)
 
@@ -11,7 +11,13 @@ class NavigateToSchedulesHandler extends BaseHandler {
   async execute(page) {
     // Navigate to schedules
     const selector = this.goToSchedulesSelector
-    await page.click(selector)
+
+    await Promise.all([
+      page.click(selector),
+      page.waitForNavigation({waitUntil: 'networkidle2'})
+    ])
+
+    await waitTillHTMLRendered(page)
   }
 }
 

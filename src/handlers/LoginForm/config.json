@@ -1,13 +1,13 @@
 {
   "user": {
-    "selector": "#maillog2",
+    "selector": "input[name=\"email\"]",
     "value": "Define your email in config .env file"
   },
   "password": {
-    "selector": "#mailpass2",
+    "selector": "input[name=\"pass\"]",
     "value": "Define your password in config .env file"
   },
   "form": {
-    "selector": "form"
+    "selector": "form.newform100.validate_form.input_co"
   }
 }
